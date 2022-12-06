@@ -10,14 +10,11 @@ export class IDispatchCustomEvent implements IDispatchCustomEventBase {
   dispatch(nameEvent: string, params?: any) {}
 }
 
-export function DispatchCustomEvent<T extends Constructor>(BaseClass: T) {
-  return class extends BaseClass {
-    constructor(...args: any[]) {
-      super(...args);
-    }
-
-    dispatch(nameEvent: string, params?: any) {
+export function DispatchCustomEvent<T extends Constructor>(target: T) {
+  Object.defineProperty(target.prototype, 'dispatch', {
+    value: function (nameEvent: string, params?: any) {
       customEvent.dispatch(nameEvent, params);
-    }
-  };
+    },
+  });
+  return target;
 }

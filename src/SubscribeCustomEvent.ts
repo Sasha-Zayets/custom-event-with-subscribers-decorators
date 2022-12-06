@@ -13,18 +13,18 @@ export class ISubscribeCustomEvent implements ISubscribeCustomEventBase {
     unsubscribe(nameEvent: string) {}
 }
 
-export function SubscribeCustomEvent<T extends Constructor>(BaseClass: T) {
-    return class extends BaseClass {
-      constructor(...args: any[]) {
-        super(...args);
-      }
-  
-      subscribe(nameEvent: string, callback: Callback) {
-        customEvent.subscribe(nameEvent, callback);
-      }
+export function SubscribeCustomEvent<T extends Constructor>(target: T) {
+  Object.defineProperty(target.prototype, 'subscribe', {
+    value: function (nameEvent: string, callback: Callback) {
+      customEvent.subscribe(nameEvent, callback);
+    },
+  });
 
-      unsubscribe(nameEvent: string, callback: Callback) {
-        customEvent.subscribe(nameEvent, callback);
-      }
-    };
+  Object.defineProperty(target.prototype, 'unsubscribe', {
+    value: function (nameEvent: string) {
+      customEvent.unsubscribe(nameEvent);
+    },
+  });
+
+  return target;
 }
