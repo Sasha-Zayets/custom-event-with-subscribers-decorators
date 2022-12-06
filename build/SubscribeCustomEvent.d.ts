@@ -6,9 +6,13 @@ interface ISubscribeCustomEventBase {
     subscribe: (nameEvent: string, callback: Callback) => void;
     unsubscribe: (nameEvent: string) => void;
 }
-export declare class ISubscribeCustomEvent implements ISubscribeCustomEventBase {
+export declare class ISubscribeManualCustomEvent implements ISubscribeCustomEventBase {
     subscribe(nameEvent: string, callback: Callback): void;
     unsubscribe(nameEvent: string): void;
 }
-export declare function SubscribeCustomEvent<T extends Constructor>(target: T): T;
+export declare function SubscribeManualCustomEvent<T extends Constructor>(target: T): T;
+export interface ISubscribeCustomEvent {
+    setStateComponent?: <T>(data: T) => void;
+}
+export declare function SubscribeCustomEvent<T extends Constructor>(eventName: string, keyForState?: string, defaultState?: any): (target: T) => T;
 export {};
