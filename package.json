@@ -1,0 +1,16 @@
+{
+  "name": "custom-event-with-subscribers-decorators",
+  "version": "1.0.0",
+  "description": "Decorators for working with custom-event-with-subscribers library",
+  "main": ".build/index.js",
+  "scripts": {
+    "start": "tsc --watch",
+    "build": "tsc"
+  },
+  "author": "Alex Zaiets <sachazaets@ukr.net>",
+  "license": "ISC",
+  "dependencies": {
+    "custom-event-with-subscribers": "^1.2.2",
+    "typescript": "^4.9.3"
+  }
+}
