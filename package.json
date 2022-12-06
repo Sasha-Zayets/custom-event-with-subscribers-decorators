@@ -2,7 +2,7 @@
   "name": "custom-event-with-subscribers-decorators",
   "version": "1.0.0",
   "description": "Decorators for working with custom-event-with-subscribers library",
-  "main": ".build/index.js",
+  "main": "./build/index.js",
   "scripts": {
     "start": "tsc --watch",
     "build": "tsc"
