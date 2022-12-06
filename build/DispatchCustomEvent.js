@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.DispatchCustomEvent = exports.IDispatchCustomEvent = void 0;
 const custom_event_with_subscribers_1 = __importDefault(require("custom-event-with-subscribers"));
 class IDispatchCustomEvent {
-    dispatch(nameEvent) { }
+    dispatch(nameEvent, params) { }
 }
 exports.IDispatchCustomEvent = IDispatchCustomEvent;
 function DispatchCustomEvent(BaseClass) {

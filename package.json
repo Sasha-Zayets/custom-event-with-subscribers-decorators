@@ -1,6 +1,6 @@
 {
   "name": "custom-event-with-subscribers-decorators",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Decorators for working with custom-event-with-subscribers library",
   "main": "./build/index.js",
   "scripts": {
