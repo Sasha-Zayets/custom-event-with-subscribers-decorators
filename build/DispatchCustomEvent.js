@@ -9,14 +9,12 @@ class IDispatchCustomEvent {
     dispatch(nameEvent, params) { }
 }
 exports.IDispatchCustomEvent = IDispatchCustomEvent;
-function DispatchCustomEvent(BaseClass) {
-    return class extends BaseClass {
-        constructor(...args) {
-            super(...args);
-        }
-        dispatch(nameEvent, params) {
+function DispatchCustomEvent(target) {
+    Object.defineProperty(target.prototype, 'dispatch', {
+        value: function (nameEvent, params) {
             custom_event_with_subscribers_1.default.dispatch(nameEvent, params);
-        }
-    };
+        },
+    });
+    return target;
 }
 exports.DispatchCustomEvent = DispatchCustomEvent;

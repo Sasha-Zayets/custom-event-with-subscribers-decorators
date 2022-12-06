@@ -10,11 +10,5 @@ export declare class ISubscribeCustomEvent implements ISubscribeCustomEventBase 
     subscribe(nameEvent: string, callback: Callback): void;
     unsubscribe(nameEvent: string): void;
 }
-export declare function SubscribeCustomEvent<T extends Constructor>(BaseClass: T): {
-    new (...args: any[]): {
-        [x: string]: any;
-        subscribe(nameEvent: string, callback: Callback): void;
-        unsubscribe(nameEvent: string, callback: Callback): void;
-    };
-} & T;
+export declare function SubscribeCustomEvent<T extends Constructor>(target: T): T;
 export {};

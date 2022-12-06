@@ -10,17 +10,17 @@ class ISubscribeCustomEvent {
     unsubscribe(nameEvent) { }
 }
 exports.ISubscribeCustomEvent = ISubscribeCustomEvent;
-function SubscribeCustomEvent(BaseClass) {
-    return class extends BaseClass {
-        constructor(...args) {
-            super(...args);
-        }
-        subscribe(nameEvent, callback) {
+function SubscribeCustomEvent(target) {
+    Object.defineProperty(target.prototype, 'subscribe', {
+        value: function (nameEvent, callback) {
             custom_event_with_subscribers_1.default.subscribe(nameEvent, callback);
-        }
-        unsubscribe(nameEvent, callback) {
-            custom_event_with_subscribers_1.default.subscribe(nameEvent, callback);
-        }
-    };
+        },
+    });
+    Object.defineProperty(target.prototype, 'unsubscribe', {
+        value: function (nameEvent) {
+            custom_event_with_subscribers_1.default.unsubscribe(nameEvent);
+        },
+    });
+    return target;
 }
 exports.SubscribeCustomEvent = SubscribeCustomEvent;
