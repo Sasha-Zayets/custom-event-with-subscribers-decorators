@@ -1,2 +1,4 @@
-export { IDispatchCustomEvent, DispatchCustomEvent } from "./DispatchCustomEvent";
-export { ISubscribeCustomEvent, SubscribeCustomEvent, ISubscribeManualCustomEvent } from "./SubscribeCustomEvent";
+export { DispatchCustomEvent } from './DispatchCustomEvent';
+export { SubscribeCustomEvent } from './SubscribeCustomEvent';
+
+export * from './types';

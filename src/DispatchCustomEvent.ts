@@ -1,14 +1,5 @@
-import customEvent from "custom-event-with-subscribers";
-
-type Constructor = { new (...args: any[]): any };
-
-interface IDispatchCustomEventBase {
-  dispatch: (nameEvent: string, params?: any) => void;
-}
-
-export class IDispatchCustomEvent implements IDispatchCustomEventBase {
-  dispatch(nameEvent: string, params?: any) {}
-}
+import customEvent from 'custom-event-with-subscribers';
+import { Constructor } from './types';
 
 export function DispatchCustomEvent<T extends Constructor>(target: T) {
   Object.defineProperty(target.prototype, 'dispatch', {

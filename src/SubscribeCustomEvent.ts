@@ -1,17 +1,5 @@
 import customEvent from 'custom-event-with-subscribers';
-
-type Constructor = { new (...args: any[]): any };
-type Callback = (data: any) => void;
-
-interface ISubscribeCustomEventBase {
-  subscribe: (nameEvent: string, callback: Callback) => void;
-  unsubscribe: (nameEvent: string) => void;
-}
-
-export class ISubscribeManualCustomEvent implements ISubscribeCustomEventBase {
-  subscribe(nameEvent: string, callback: Callback) {}
-  unsubscribe(nameEvent: string) {}
-}
+import { Callback, Constructor } from './types';
 
 export function SubscribeManualCustomEvent<T extends Constructor>(target: T) {
   target.prototype.subscribe = (nameEvent: string, callback: Callback) => {
@@ -25,16 +13,12 @@ export function SubscribeManualCustomEvent<T extends Constructor>(target: T) {
   return target;
 }
 
-export interface ISubscribeCustomEvent {
-  setStateComponent?: <T>(data: T) => void;
-}
-
 export function SubscribeCustomEvent<T extends Constructor>(
   eventName: string,
   keyForState?: string,
   defaultState?: any
-) {
-  return (target: T) => {
+): Function {
+  return (target: T): T => {
     const stateKey = keyForState || 'state';
     const state = defaultState || {};
 
