@@ -3,13 +3,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SubscribeCustomEvent = exports.SubscribeManualCustomEvent = exports.ISubscribeManualCustomEvent = void 0;
+exports.SubscribeCustomEvent = exports.SubscribeManualCustomEvent = void 0;
 const custom_event_with_subscribers_1 = __importDefault(require("custom-event-with-subscribers"));
-class ISubscribeManualCustomEvent {
-    subscribe(nameEvent, callback) { }
-    unsubscribe(nameEvent) { }
-}
-exports.ISubscribeManualCustomEvent = ISubscribeManualCustomEvent;
 function SubscribeManualCustomEvent(target) {
     target.prototype.subscribe = (nameEvent, callback) => {
         custom_event_with_subscribers_1.default.subscribe(nameEvent, callback);
