@@ -1,8 +1,6 @@
-import { Injectable } from "@angular/core";
 import customEvent from "custom-event-with-subscribers";
 import { Callback } from "./types";
 
-@Injectable({providedIn: 'root'})
 export class CustomEventWithSubscribers {
     dispatch(nameEvent: string, params?: any) {
         customEvent.dispatch(nameEvent, params);

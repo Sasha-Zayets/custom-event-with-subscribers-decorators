@@ -2,143 +2,35 @@
 
 This hooks for Angular components, which using Custom Event with library: [custom-event-with-subscribers](https://www.npmjs.com/package/custom-event-with-subscribers)
 
-## Decorators:
-
-### @DispatchCustomEvent - Added to class, dispatch function with functionality create and run custom event
-```ts
-import { Component } from '@angular/core';
-import { DispatchCustomEvent, IDispatchCustomEvent } from 'custom-event-with-subscribers-decorators';
+### Example:
+```
+import { Component, OnInit } from '@angular/core';
+import { NavigationStart, Router } from '@angular/router';
+import { CustomEventService } from 'custom-event-with-subscribers-decorators';
 
 @Component({
-  selector: 'hello',
-  template: `
-    <button (click)="open()">Emit an open event</button>
-  `
+  selector: 'micro-silpo-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss'],
 })
-@DispatchCustomEvent
-export class HelloComponent extends IDispatchCustomEvent {
-  open() {
-    this.dispatch('test', { data: 'test' });
+export class AppComponent implements OnInit {
+  constructor(private router: Router, private customEvent: CustomEventService) {
+    router.events.subscribe((event) => {
+      if (event instanceof NavigationStart) {
+        customEvent.dispatch("change-route", { url: event.url });
+      }
+    });
   }
-}
-```
 
----
+  ngOnInit() {
+    this.customEvent.subscribe("change-route-react", (data: any) => {
+      this.router.navigate([data.url]);
+    });
+  }
 
-### @SubscribeManualCustomEvent - Added to class, methods subscribe, unsubscribe for working with Custom Event
-
-NOTE: You need manual unsubscribe
-```ts
-import { Component, OnInit } from '@angular/core';
-import { SubscribeManualCustomEvent, ISubscribeManualCustomEvent } from 'custom-event-with-subscribers-decorators';
-
-@Component({
-  selector: 'hello',
-  template: `
-    <div>{{ state?.name }}</div>
-  `
-})
-@SubscribeManualCustomEvent
-export class HelloComponent extends ISubscribeManualCustomEvent implements OnInit {
-    state = {};
-    ngOnInit() {
-        this.subscribe("nameEvent", (data) => {
-           this.state = data; 
-        });
-    }
-
-    ngOnDestroy() {
-        this.unsubscribe("nameEvent");
-    }
-}
-```
-
----
-
-### @SubscribeCustomEvent - Added to class, methods subscribe, unsubscribe, setStateComponent for working with Custom Event (AUTOMATICALLY)
-
-#### Params:
-```
-    eventName: string,
-    keyForState?: string,
-    defaultState?: any
-```
-
-```ts
-import { Component, OnInit } from '@angular/core';
-import { SubscribeCustomEvent, ISubscribeCustomEvent } from 'custom-event-with-subscribers-decorators';
-
-@Component({
-  selector: 'hello',
-  template: `
-    <div>{{ state?.name }}</div>
-  `
-})
-@SubscribeManualCustomEvent("nameEvent", "state")
-export class HelloComponent extends ISubscribeCustomEvent implements OnInit {
-    ngOnInit() {
-        this.setStateComponent({ name: "test" });
-    }
-}
-```
-
-
-### NOTE:
-For combine two decorators, you need import class for extends:
-
-IDispatchAndManualSubscribeEvent, IDispatchAndSubscribeEvent
-```ts
-import { Component, OnInit } from '@angular/core';
-import { DispatchCustomEvent, SubscribeCustomEvent, IDispatchAndSubscribeEvent } from 'custom-event-with-subscribers-decorators';
-
-@Component({
-  selector: 'hello',
-  template: `
-    <div>{{ state?.name }}</div>
-    <button (click)="open"></button>
-  `
-})
-@DispatchCustomEvent
-@SubscribeManualCustomEvent("nameEvent", "state")
-export class HelloComponent extends IDispatchAndSubscribeEvent implements OnInit {
-    ngOnInit() {
-        this.setStateComponent({ name: "test" });
-    }
-
-    open() {
-        this.dispatch('test', { data: 'test' });
-    }
-}
-```
-
-```ts
-import { Component, OnInit } from '@angular/core';
-import { DispatchCustomEvent, SubscribeManualCustomEvent, IDispatchAndManualSubscribeEvent } from 'custom-event-with-subscribers-decorators';
-
-@Component({
-  selector: 'hello',
-  template: `
-    <div>{{ state?.name }}</div>
-    <button (click)="open"></button>
-  `
-})
-@DispatchCustomEvent
-@SubscribeManualCustomEvent
-export class HelloComponent extends IDispatchAndManualSubscribeEvent implements OnInit {
-    state = {};
-    ngOnInit() {
-        this.subscribe("nameEvent", (data) => {
-            this.state = data;
-        });
-    }
-
-    ngOnDestroy() {
-        this.unsubscribe("nameEvent");
-    }
-    
-    open() {
-        this.dispatch('test', { data: 'test' });
-    }
+  ngOnDestroy() {
+    this.customEvent.unsubscribe("change-route-react");
+  }
 }
 ```
 
