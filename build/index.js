@@ -14,9 +14,7 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SubscribeCustomEvent = exports.DispatchCustomEvent = void 0;
-var DispatchCustomEvent_1 = require("./DispatchCustomEvent");
-Object.defineProperty(exports, "DispatchCustomEvent", { enumerable: true, get: function () { return DispatchCustomEvent_1.DispatchCustomEvent; } });
-var SubscribeCustomEvent_1 = require("./SubscribeCustomEvent");
-Object.defineProperty(exports, "SubscribeCustomEvent", { enumerable: true, get: function () { return SubscribeCustomEvent_1.SubscribeCustomEvent; } });
+exports.CustomEventWithSubscribers = void 0;
+var CustomEventWithSubscribers_1 = require("./CustomEventWithSubscribers");
+Object.defineProperty(exports, "CustomEventWithSubscribers", { enumerable: true, get: function () { return CustomEventWithSubscribers_1.CustomEventWithSubscribers; } });
 __exportStar(require("./types"), exports);

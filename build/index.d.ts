@@ -1,3 +1,2 @@
-export { DispatchCustomEvent } from './DispatchCustomEvent';
-export { SubscribeCustomEvent } from './SubscribeCustomEvent';
+export { CustomEventWithSubscribers } from './CustomEventWithSubscribers';
 export * from './types';
